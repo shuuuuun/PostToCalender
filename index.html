@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>hoge</title>
+    <meta name="description" content="meta description">
+    <meta name="keywords" content="hoge, fuga">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://localhost">
+    <meta property="og:title" content="hoge">
+    <meta property="og:site_name" content="hoge">
+    <meta property="og:description" content="og description">
+    <meta property="og:image" content="http://localhostimg/ogp/top.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="hoge">
+    <meta name="twitter:description" content="tw description">
+    <meta name="twitter:image" content="http://localhostimg/ogp/top.png">
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="./favicon.ico">
+    <link rel="icon" type="image/vnd.microsoft.icon" href="./favicon.ico">
+    <link rel="apple-touch-icon" href="./favicon.ico">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/sp/main.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script src="./js/lib/jquery.easing.1.3.js"></script>
+    <script src="./js/lib/jquery.transform2d.js"></script>
+    <script src="./js/App.js"></script>
+    <script src="./js/Util.js"></script>
+    <script src="./js/main.js"></script>
+  </head>
+  <body>
+    <script>
+      (function(win, doc, ns){
+        var ua = win.navigator.userAgent.toLowerCase();
+        ns.ua = {};
+        ns.ua.isSP = /ipod|iphone|ipad|android/i.test(ua);
+        ns.ua.isAndroid = /android/.test(ua);
+        ns.ua.isPC = !ns.ua.isSP;
+        ns.ua.isIE8 = /msie 8/.test(ua);
+        ns.ua.isIE9 = /msie 9/.test(ua);
+        if ( ns.ua.isSP ) doc.body.className += " isSP";
+      })(window, document, App);
+      
+    </script>
+    <div class="wrapper">
+      <h1>hoge</h1>
+    </div>
+  </body>
+</html>

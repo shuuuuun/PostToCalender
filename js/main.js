@@ -1,0 +1,1 @@
+!function(n,e,i){var o=($(n),new i.Util);o.bindOnResize(),$(function(){i.ua.isSP?$(".onlypc").remove():$(".onlysp").remove()}),n.dev={}}(this,document,App);
