@@ -6,7 +6,8 @@ html(lang="ja")
     
     include partials/_meta
     
-    title= share_title
+    //- title= share_title
+    title PostToCalendar
     meta(name="description" content=meta_description)
     meta(name="keywords" content=meta_keywords)
     
@@ -38,8 +39,9 @@ html(lang="ja")
     
     script(src="./js/App.js")
     script(src="./js/Util.js")
-    script(src="./js/Calender.js")
+    script(src="./js/Calendar.js")
     script(src="./js/main.js")
+    //- script(src="./js/tmp.js")
     script(src="https://apis.google.com/js/client.js?onload=apionload")
     
   body
@@ -56,11 +58,12 @@ html(lang="ja")
       })(window, document, App);
     
     div.wrapper
-      h1 hoge
+      h1 PostToCalendar
       span.js-authBtn.btn Auth
+      div.message
       
-      | <div id="authorize-div" style="display: none">
-      |   <span>Authorize access to Google Calendar API</span>
-      |   <button id="authorize-button"> Authorize </button>
-      | </div>
-      | <pre id="output"></pre>
+      //- | <div id="authorize-div" style="display: none">
+      //- |   <span>Authorize access to Google Calendar API</span>
+      //- |   <button id="authorize-button"> Authorize </button>
+      //- | </div>
+      //- | <pre id="output"></pre>

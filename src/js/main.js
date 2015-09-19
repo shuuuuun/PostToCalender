@@ -3,7 +3,7 @@
   var $win = $(win);
   var util = new ns.Util();
   util.bindOnResize();
-  var calendar = new ns.Calender();
+  var calendar = new ns.Calendar();
   
   $(function(){
     
