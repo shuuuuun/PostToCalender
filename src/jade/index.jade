@@ -59,11 +59,11 @@ html(lang="ja")
     
     div.wrapper
       h1 PostToCalendar
-      span.js-authBtn.btn Auth
+      div
+        span.btn.authBtn Auth
+      p.btn.attendBtn Attend
+      p.btn.leaveBtn Leave
       div.message
+        | Message:
+        br
       
-      //- | <div id="authorize-div" style="display: none">
-      //- |   <span>Authorize access to Google Calendar API</span>
-      //- |   <button id="authorize-button"> Authorize </button>
-      //- | </div>
-      //- | <pre id="output"></pre>

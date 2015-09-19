@@ -18,12 +18,22 @@
     
   });
   
+  function printMsg(message) {
+    var $msg = $(".message");
+    $msg.append(message+"<br>");
+  }
+  
   win.apionload = function(){
     // console.log("apionload");
     calendar.checkAuth();
     
-    $(".js-authBtn").on("click",calendar.handleAuthClick);
-    $("#authorize-button").on("click",calendar.handleAuthClick);
+    $(".authBtn").on("click", calendar.handleAuthClick);
+    $("#authorize-button").on("click", calendar.handleAuthClick);
+    
+    
+    $(".attendBtn").on("click", function(){
+      calendar.postAttendEvent();
+    });
     
   };
   
