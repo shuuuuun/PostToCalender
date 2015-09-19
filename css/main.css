@@ -88,3 +88,17 @@ body * {
 .btn:hover {
   opacity: 0.7;
 }
+
+.attendBtn {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  border-radius: 50px;
+}
+
+.leaveBtn {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  border-radius: 50px;
+}
