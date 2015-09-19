@@ -64,7 +64,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 }
 
 body {
-  font-family: YuGothic, "游ゴシック", "ヒラギノ角ゴPro W3", "Hiragino Kaku Gothic Pro", Meiryo, "メイリオ", Helvetica, Arial, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+  font-family: Futura, YuGothic, "游ゴシック", "ヒラギノ角ゴPro W3", "Hiragino Kaku Gothic Pro", Meiryo, "メイリオ", Helvetica, Arial, sans-serif;
 }
 
 body * {
@@ -73,4 +73,18 @@ body * {
 
 .wrapper {
   min-width: 1024px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0 0.5em;
+  height: 30px;
+  line-height: 30px;
+  background-color: #FFCC66;
+  text-align: center;
+  cursor: pointer;
+  margin: 10px;
+}
+.btn:hover {
+  opacity: 0.7;
 }

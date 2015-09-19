@@ -1,1 +1,1 @@
-!function(n,e,i){var o=($(n),new i.Util);o.bindOnResize(),$(function(){i.ua.isSP?$(".onlypc").remove():$(".onlysp").remove()}),n.dev={}}(this,document,App);
+!function(n,e,i){var o=($(n),new i.Util);o.bindOnResize();var t=new i.Calender;$(function(){i.ua.isSP?$(".onlypc").remove():$(".onlysp").remove()}),n.apionload=function(){t.checkAuth(),$(".js-authBtn").on("click",t.handleAuthClick),$("#authorize-button").on("click",t.handleAuthClick)},n.dev={}}(this,document,App);
