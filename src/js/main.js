@@ -3,6 +3,7 @@
   var $win = $(win);
   var util = new ns.Util();
   util.bindOnResize();
+  var calendar = new ns.Calender();
   
   $(function(){
     
@@ -16,6 +17,15 @@
     }
     
   });
+  
+  win.apionload = function(){
+    // console.log("apionload");
+    calendar.checkAuth();
+    
+    $(".js-authBtn").on("click",calendar.handleAuthClick);
+    $("#authorize-button").on("click",calendar.handleAuthClick);
+    
+  };
   
   // for development
   win.dev = {
