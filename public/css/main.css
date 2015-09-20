@@ -89,6 +89,10 @@ body * {
   opacity: 0.7;
 }
 
+.authBtn {
+  display: none;
+}
+
 .attendBtn {
   width: 100px;
   height: 100px;
