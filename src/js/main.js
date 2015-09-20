@@ -2,7 +2,7 @@
   
   var $win = $(win);
   var util = new ns.Util();
-  util.bindOnResize();
+  // util.bindOnResize();
   var calendar = new ns.Calendar();
   
   $(function(){
@@ -33,6 +33,10 @@
     
     $(".attendBtn").on("click", function(){
       calendar.postAttendEvent();
+    });
+    
+    $(".leaveBtn").on("click", function(){
+      calendar.postLeaveEvent();
     });
     
   };

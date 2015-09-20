@@ -7,6 +7,9 @@
   var API_KEY = "AIzaSyBultKZZsIiFj4QrUuavwsEH6yTCQEXACQ";
   
   ns.Calendar = function(){
+    
+    this.Evt = $({});
+    
   };
   
   ns.Calendar.prototype.checkAuth = function() {
@@ -50,6 +53,8 @@
   
   
   ns.Calendar.prototype.postAttendEvent = function() {
+    var that = this;
+    
     var datetime = (new Date()).toISOString();
     var param = {
       "calendarId": CALENDAR_ID,
@@ -62,15 +67,52 @@
         "dateTime": datetime,
       },
     };
-
-    this.postEvent(param);
+    
+    that.postEvent(param);
+    
+    that.Evt.on("posteventdone",function(){
+      console.log("attend",that.lastResponse);
+    });
+  };
+  
+  ns.Calendar.prototype.postLeaveEvent = function() {
+    var that = this;
+    
+    var datetime = (new Date()).toISOString();
+    var param = that.lastResponse;
+    param.calendarId = CALENDAR_ID;
+    param.eventId = that.currentEventID;
+    param.end.dateTime = datetime;
+    
+    that.updateEvent(param);
+    
+    that.Evt.on("updateeventdone",function(){
+      console.log("leave",that.lastResponse);
+    });
   };
   
   ns.Calendar.prototype.postEvent = function(param) {
-    var request = gapi.client.calendar.events.insert(param);
+    var that = this;
     
+    var request = gapi.client.calendar.events.insert(param);
     request.execute(function(response) {
-      console.log(response);
+      // console.log(response);
+      that.lastResponse = response;
+      that.currentEventID = response.id;
+      // that.currentEventStart = response.start;
+      that.Evt.trigger("posteventdone");
+    });
+  };
+  
+  ns.Calendar.prototype.updateEvent = function(param) {
+    var that = this;
+    
+    var request = gapi.client.calendar.events.update(param);
+    request.execute(function(response) {
+      // console.log(response);
+      that.lastResponse = response;
+      that.currentEventID = response.id;
+      that.Evt.trigger("updateeventdone");
     });
   };
   

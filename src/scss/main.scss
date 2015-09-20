@@ -43,7 +43,9 @@ body * {
   }
 }
 
-.authBtn {}
+.authBtn {
+  display: none;
+}
 .attendBtn {
   width: 100px;
   height: 100px;
