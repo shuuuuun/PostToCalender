@@ -71,34 +71,46 @@ body * {
   box-sizing: border-box;
 }
 
-.btn {
-  display: inline-block;
-  padding: 0 0.5em;
-  height: 30px;
-  line-height: 30px;
+.ttl {
+  margin: 10px;
+}
+
+.btn, .authBtn, .attendBtn, .leaveBtn {
   background-color: #FFCC66;
   text-align: center;
   cursor: pointer;
   margin: 10px;
 }
-.btn:hover {
+.btn:hover, .authBtn:hover, .attendBtn:hover, .leaveBtn:hover {
   opacity: 0.7;
 }
 
 .authBtn {
+  display: inline-block;
+  padding: 0 0.5em;
+  height: 30px;
+  line-height: 30px;
   display: none;
 }
 
-.attendBtn {
+.btns {
+  position: relative;
+  height: 120px;
+}
+
+.attendanceBtn, .attendBtn, .leaveBtn {
   width: 100px;
   height: 100px;
   line-height: 100px;
   border-radius: 50px;
+  position: absolute;
+  top: 0;
 }
 
 .leaveBtn {
-  width: 100px;
-  height: 100px;
-  line-height: 100px;
-  border-radius: 50px;
+  display: none;
+}
+
+.message {
+  margin: 10px;
 }
