@@ -17,7 +17,7 @@ $MAIN_FONT: Futura, YuGothic, '游ゴシック', "ヒラギノ角ゴPro W3", "Hi
 // ------------------------------
 body {
   font-family: $MAIN_FONT;
-  // @include user-select(none);
+  @include user-select(none);
 }
 body * {
   box-sizing: border-box;
@@ -80,10 +80,12 @@ $btnsize: 250px;
 .attendBtn {
   @extend .btn;
   @extend .attendanceBtn;
+  background-color: #FF6666;
 }
 .leaveBtn {
   @extend .btn;
   @extend .attendanceBtn;
+  background-color: #66CCFF;
   display: none;
 }
 
