@@ -70,9 +70,9 @@
     
     that.postEvent(param);
     
-    that.Evt.on("posteventdone",function(){
-      console.log("attend",that.lastResponse);
-    });
+    // that.Evt.on("posteventdone",function(){
+    //   console.log("attend",that.lastResponse);
+    // });
   };
   
   ns.Calendar.prototype.postLeaveEvent = function() {
@@ -86,9 +86,9 @@
     
     that.updateEvent(param);
     
-    that.Evt.on("updateeventdone",function(){
-      console.log("leave",that.lastResponse);
-    });
+    // that.Evt.on("updateeventdone",function(){
+    //   console.log("leave",that.lastResponse);
+    // });
   };
   
   ns.Calendar.prototype.postEvent = function(param) {

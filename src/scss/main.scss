@@ -28,11 +28,11 @@ body * {
   // min-width: 1024px;
 }
 
+.ttl {
+  margin: 10px;
+}
+
 .btn {
-  display: inline-block;
-  padding: 0 0.5em;
-  height: 30px;
-  line-height: 30px;
   background-color: #FFCC66;
   text-align: center;
   cursor: pointer;
@@ -44,17 +44,36 @@ body * {
 }
 
 .authBtn {
+  @extend .btn;
+  display: inline-block;
+  padding: 0 0.5em;
+  height: 30px;
+  line-height: 30px;
   display: none;
 }
-.attendBtn {
+
+.btns {
+  position: relative;
+  height: 100px + 20px;
+}
+.attendanceBtn {
   width: 100px;
   height: 100px;
   line-height: 100px;
   border-radius: 50px;
+  position: absolute;
+  top: 0;
+}
+.attendBtn {
+  @extend .btn;
+  @extend .attendanceBtn;
 }
 .leaveBtn {
-  width: 100px;
-  height: 100px;
-  line-height: 100px;
-  border-radius: 50px;
+  @extend .btn;
+  @extend .attendanceBtn;
+  display: none;
+}
+
+.message {
+  margin: 10px;
 }
