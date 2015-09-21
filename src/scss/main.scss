@@ -25,7 +25,9 @@ body * {
 
 // ------------------------------
 .wrapper {
-  // min-width: 1024px;
+  width: 320px;
+  font-size: 30px;
+  text-align: center;
 }
 
 .ttl {
@@ -52,17 +54,22 @@ body * {
   display: none;
 }
 
+$btnsize: 250px;
 .btns {
   position: relative;
-  height: 100px + 20px;
+  height: $btnsize;
+  margin-top: 30px;
 }
 .attendanceBtn {
-  width: 100px;
-  height: 100px;
-  line-height: 100px;
-  border-radius: 50px;
+  width: $btnsize;
+  height: $btnsize;
+  line-height: $btnsize;
+  border-radius: $btnsize / 2;
+  margin: auto;
   position: absolute;
   top: 0;
+  left: 0;
+  right: 0;
 }
 .attendBtn {
   @extend .btn;
@@ -75,5 +82,12 @@ body * {
 }
 
 .message {
-  margin: 10px;
+  margin: 30px auto;
+}
+
+// sp ------------------------------
+.isSP {
+  .wrapper {
+    margin: 0 auto;
+  }
 }
