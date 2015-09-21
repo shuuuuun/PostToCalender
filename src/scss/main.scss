@@ -45,14 +45,14 @@ body * {
   }
 }
 
-.authBtn {
-  @extend .btn;
-  display: inline-block;
-  padding: 0 0.5em;
-  height: 30px;
-  line-height: 30px;
-  display: none;
-}
+// .authBtn {
+//   @extend .btn;
+//   display: inline-block;
+//   padding: 0 0.5em;
+//   height: 30px;
+//   line-height: 30px;
+//   display: none;
+// }
 
 $btnsize: 250px;
 .btns {
@@ -71,6 +71,12 @@ $btnsize: 250px;
   left: 0;
   right: 0;
 }
+.authBtn {
+  @extend .btn;
+  @extend .attendanceBtn;
+  display: none;
+}
+
 .attendBtn {
   @extend .btn;
   @extend .attendanceBtn;

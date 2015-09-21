@@ -8,9 +8,10 @@
   
   ns.Calendar = function(){
     
-    this.Evt = $({});
+    // this.Evt = $({});
     
   };
+  ns.Calendar.Evt = $({});
   
   ns.Calendar.prototype.checkAuth = function() {
     
@@ -39,14 +40,14 @@
   };
   
   function handleAuthResult(authResult) {
-    var $authBtn = $(".authBtn");
+    var that = ns.Calendar;
     if (authResult && !authResult.error) {
-      $authBtn.hide();
+      ns.Calendar.Evt.trigger("haveAuthed");
       
       // loadCalendarApi
-      gapi.client.load("calendar", "v3", ns.Calendar.printCalendarList);
+      gapi.client.load("calendar", "v3", function(){});
     } else {
-      $authBtn.show();
+      ns.Calendar.Evt.trigger("shouldAuth");
     }
   };
   
@@ -70,7 +71,7 @@
     
     that.postEvent(param);
     
-    // that.Evt.on("posteventdone",function(){
+    // ns.Calendar.Evt.on("posteventdone",function(){
     //   console.log("attend",that.lastResponse);
     // });
   };
@@ -86,7 +87,7 @@
     
     that.updateEvent(param);
     
-    // that.Evt.on("updateeventdone",function(){
+    // ns.Calendar.Evt.on("updateeventdone",function(){
     //   console.log("leave",that.lastResponse);
     // });
   };
@@ -100,7 +101,7 @@
       that.lastResponse = response;
       that.currentEventID = response.id;
       // that.currentEventStart = response.start;
-      that.Evt.trigger("posteventdone");
+      ns.Calendar.Evt.trigger("posteventdone");
     });
   };
   
@@ -112,7 +113,7 @@
       // console.log(response);
       that.lastResponse = response;
       that.currentEventID = response.id;
-      that.Evt.trigger("updateeventdone");
+      ns.Calendar.Evt.trigger("updateeventdone");
     });
   };
   
@@ -127,12 +128,6 @@
         return "id:" + events[i].id + " summary:" + events[i].summary;
       }
     });
-  };
-  
-  
-  ns.Calendar.printMsg = function(message) {
-    var $msg = $(".message");
-    $msg.append(message+"<br>");
   };
   
   

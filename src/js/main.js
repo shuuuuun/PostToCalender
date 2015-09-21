@@ -6,10 +6,11 @@
   var calendar = new ns.Calendar();
   
   var isWorking = false;
-  var $msg, $attendBtn, $leaveBtn;
+  var $msg, $authBtn, $attendBtn, $leaveBtn;
   
   $(function(){
     $msg = $(".message");
+    $authBtn = $(".authBtn");
     $attendBtn = $(".attendBtn");
     $leaveBtn = $(".leaveBtn");
     
@@ -23,7 +24,15 @@
     }
     
     
-    $(".authBtn").on("click", calendar.handleAuthClick);
+    ns.Calendar.Evt.on("haveAuthed",function(){
+      $authBtn.fadeOut();
+      $attendBtn.fadeIn();
+    }).on("shouldAuth",function(){
+      $authBtn.fadeIn();
+      $attendBtn.fadeOut();
+    });
+    
+    $authBtn.on("click", calendar.handleAuthClick);
     
     $attendBtn.on("click", function(){
       if (isWorking) return;
@@ -31,7 +40,7 @@
       printMsg("Do your best!");
     });
     
-    calendar.Evt.on("posteventdone",function(){
+    ns.Calendar.Evt.on("posteventdone",function(){
       isWorking = true;
       $attendBtn.fadeOut();
       $leaveBtn.fadeIn();
@@ -45,7 +54,7 @@
       printMsg("Thanks for your hard work!");
     });
     
-    calendar.Evt.on("updateeventdone",function(){
+    ns.Calendar.Evt.on("updateeventdone",function(){
       isWorking = false;
       $leaveBtn.fadeOut();
       $attendBtn.fadeIn();
