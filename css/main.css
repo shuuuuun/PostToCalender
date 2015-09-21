@@ -65,6 +65,10 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 
 body {
   font-family: Futura, YuGothic, "游ゴシック", "ヒラギノ角ゴPro W3", "Hiragino Kaku Gothic Pro", Meiryo, "メイリオ", Helvetica, Arial, sans-serif;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 body * {
@@ -113,7 +117,12 @@ body * {
   display: none;
 }
 
+.attendBtn {
+  background-color: #FF6666;
+}
+
 .leaveBtn {
+  background-color: #66CCFF;
   display: none;
 }
 
