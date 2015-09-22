@@ -5,10 +5,12 @@
   // util.bindOnResize();
   var calendar = new ns.Calendar();
   
+  var $icon;
   var isWorking = false;
   var $msg, $authBtn, $attendBtn, $leaveBtn;
   
   $(function(){
+    $icon = $(".apple-touch-icon");
     $msg = $(".message");
     $authBtn = $(".authBtn");
     $attendBtn = $(".attendBtn");
@@ -72,17 +74,20 @@
     $authBtn.fadeIn();
     $attendBtn.fadeOut();
     $leaveBtn.fadeOut();
+    $icon.attr("href","./img/icon_auth.png");
   }
   function showAttendBtn(){
     $authBtn.fadeOut();
     $attendBtn.fadeIn();
     $leaveBtn.fadeOut();
+    $icon.attr("href","./img/icon_attend.png");
   }
   function showLeaveBtn(){
     $authBtn.fadeOut();
     $attendBtn.fadeOut();
     $leaveBtn.fadeIn();
     printMsg("Now Working!");
+    $icon.attr("href","./img/icon_leave.png");
   }
   
   function printMsg(message) {
