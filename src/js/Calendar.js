@@ -73,7 +73,7 @@
     var datetime = (new Date()).toISOString();
     var param = {
       "calendarId": CALENDAR_ID,
-      "summary": "出勤",
+      "summary": "working time",
       // "description": ",
       "start": {
         "dateTime": datetime,
