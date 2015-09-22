@@ -26,10 +26,11 @@
     
     ns.Calendar.Evt.on("haveAuthed",function(){
       $authBtn.fadeOut();
-      $attendBtn.fadeIn();
+      isWorking = calendar.checkCookies();
+      if (isWorking) showLeaveBtn();
+      else showAttendBtn();
     }).on("shouldAuth",function(){
-      $authBtn.fadeIn();
-      $attendBtn.fadeOut();
+      showAuthBtn();
     });
     
     $authBtn.on("click", calendar.handleAuthClick);
@@ -42,9 +43,7 @@
     
     ns.Calendar.Evt.on("posteventdone",function(){
       isWorking = true;
-      $attendBtn.fadeOut();
-      $leaveBtn.fadeIn();
-      printMsg("Now Working...");
+      showLeaveBtn();
       // console.log("posteventdone", calendar.lastResponse);
     });
     
@@ -56,8 +55,7 @@
     
     ns.Calendar.Evt.on("updateeventdone",function(){
       isWorking = false;
-      $leaveBtn.fadeOut();
-      $attendBtn.fadeIn();
+      showAttendBtn();
       clearMsg();
       // console.log("updateeventdone", calendar.lastResponse);
     });
@@ -69,6 +67,23 @@
     calendar.checkAuth();
     
   };
+  
+  function showAuthBtn(){
+    $authBtn.fadeIn();
+    $attendBtn.fadeOut();
+    $leaveBtn.fadeOut();
+  }
+  function showAttendBtn(){
+    $authBtn.fadeOut();
+    $attendBtn.fadeIn();
+    $leaveBtn.fadeOut();
+  }
+  function showLeaveBtn(){
+    $authBtn.fadeOut();
+    $attendBtn.fadeOut();
+    $leaveBtn.fadeIn();
+    printMsg("Now Working!");
+  }
   
   function printMsg(message) {
     clearMsg();

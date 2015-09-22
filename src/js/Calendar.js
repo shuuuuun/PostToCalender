@@ -40,17 +40,31 @@
   };
   
   function handleAuthResult(authResult) {
-    var that = ns.Calendar;
     if (authResult && !authResult.error) {
-      ns.Calendar.Evt.trigger("haveAuthed");
+      // ns.Calendar.Evt.trigger("haveAuthed");
       
       // loadCalendarApi
-      gapi.client.load("calendar", "v3", function(){});
+      gapi.client.load("calendar", "v3", function(){
+        ns.Calendar.Evt.trigger("haveAuthed");
+      });
     } else {
       ns.Calendar.Evt.trigger("shouldAuth");
     }
   };
   
+  
+  ns.Calendar.prototype.checkCookies = function() {
+    var eventid = Cookies.get("PTC-eventid");
+    if (!eventid) return false;
+    
+    this.currentEventID = eventid;
+    var param = {
+      "calendarId": CALENDAR_ID,
+      "eventId": eventid,
+    };
+    this.getEvent(param);
+    return true;
+  };
   
   
   ns.Calendar.prototype.postAttendEvent = function() {
@@ -70,10 +84,6 @@
     };
     
     that.postEvent(param);
-    
-    // ns.Calendar.Evt.on("posteventdone",function(){
-    //   console.log("attend",that.lastResponse);
-    // });
   };
   
   ns.Calendar.prototype.postLeaveEvent = function() {
@@ -86,10 +96,6 @@
     param.end.dateTime = datetime;
     
     that.updateEvent(param);
-    
-    // ns.Calendar.Evt.on("updateeventdone",function(){
-    //   console.log("leave",that.lastResponse);
-    // });
   };
   
   ns.Calendar.prototype.postEvent = function(param) {
@@ -102,6 +108,7 @@
       that.currentEventID = response.id;
       // that.currentEventStart = response.start;
       ns.Calendar.Evt.trigger("posteventdone");
+      Cookies.set("PTC-eventid", that.currentEventID, { expires: 3 });
     });
   };
   
@@ -114,17 +121,25 @@
       that.lastResponse = response;
       that.currentEventID = response.id;
       ns.Calendar.Evt.trigger("updateeventdone");
+      Cookies.remove("PTC-eventid");
     });
   };
   
-  ns.Calendar.getCalendarList = function() {
-    var that = ns.Calendar;
+  ns.Calendar.prototype.getEvent = function(param) {
+    var that = this;
     
+    var request = gapi.client.calendar.events.get(param);
+    request.execute(function(response){
+      that.lastResponse = response;
+    });
+  };
+  
+  
+  ns.Calendar.getCalendarList = function() {
     var request = gapi.client.calendar.calendarList.list();
     request.execute(function(response){
       var events = response.items;
       for (var i in events){
-        // that.printMsg("id:" + events[i].id + " summary:" + events[i].summary);
         return "id:" + events[i].id + " summary:" + events[i].summary;
       }
     });
