@@ -5,6 +5,7 @@
   var CALENDAR_ID = "primary";
   // var CALENDAR_ID = "h3k3hjao5l2vnpqivbu5lvcs44@group.calendar.google.com";
   var API_KEY = "AIzaSyBultKZZsIiFj4QrUuavwsEH6yTCQEXACQ";
+  var SUMMARY = "worktime";
   
   ns.Calendar = function(){
     
@@ -73,7 +74,7 @@
     var datetime = (new Date()).toISOString();
     var param = {
       "calendarId": CALENDAR_ID,
-      "summary": "working time",
+      "summary": SUMMARY,
       // "description": ",
       "start": {
         "dateTime": datetime,
