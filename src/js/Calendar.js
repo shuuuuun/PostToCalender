@@ -3,7 +3,7 @@
   var CLIENT_ID = "890138991807-okp2geobkejj9lngj22qcond9348pph8.apps.googleusercontent.com";
   var SCOPES = ["https://www.googleapis.com/auth/calendar"];
   // var SCOPES = ["https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/userinfo.email"];
-  var CALENDAR_ID = "primary";
+  // var CALENDAR_ID = "primary";
   // var CALENDAR_ID = "h3k3hjao5l2vnpqivbu5lvcs44@group.calendar.google.com";
   var API_KEY = "AIzaSyBultKZZsIiFj4QrUuavwsEH6yTCQEXACQ";
   var SUMMARY = "worktime";
@@ -11,6 +11,7 @@
   ns.Calendar = function(){
     
     // this.Evt = $({});
+    this.CALENDAR_ID = "primary";
     
   };
   ns.Calendar.Evt = $({});
@@ -63,9 +64,12 @@
     var eventid = Cookies.get("PTC-eventid");
     if (!eventid) return false;
     
+    var calendarid = Cookies.get("PTC-calendarid");
+    if (calendarid) this.CALENDAR_ID = calendarid;
+    
     this.currentEventID = eventid;
     var param = {
-      calendarId: CALENDAR_ID,
+      calendarId: this.CALENDAR_ID,
       eventId: eventid,
     };
     this.getEvent(param);
@@ -78,7 +82,7 @@
     
     var datetime = (new Date()).toISOString();
     var param = {
-      calendarId: CALENDAR_ID,
+      calendarId: that.CALENDAR_ID,
       summary: SUMMARY,
       // description: ",
       start: {
@@ -102,7 +106,7 @@
     
     var datetime = (new Date()).toISOString();
     var param = that.lastResponse;
-    param.calendarId = CALENDAR_ID;
+    param.calendarId = that.CALENDAR_ID;
     param.eventId = that.currentEventID;
     param.end.dateTime = datetime;
     param.extendedProperties.shared.isWorking = false;
@@ -147,14 +151,26 @@
   };
   
   
-  ns.Calendar.getCalendarList = function() {
+  ns.Calendar.prototype.getCalendarList = function(callback) {
+    var that = this;
+    
+    that.calendarList = [];
     var request = gapi.client.calendar.calendarList.list();
     request.execute(function(response){
       var events = response.items;
       for (var i in events){
-        return "id:" + events[i].id + " summary:" + events[i].summary;
+        that.calendarList[i] = {
+          id: events[i].id,
+          summary: events[i].summary,
+        };
       }
+      callback();
     });
+  };
+  
+  ns.Calendar.prototype.setCalendarId = function(calendarId) {
+    this.CALENDAR_ID = calendarId;
+    Cookies.set("PTC-calendarid", calendarId);
   };
   
   

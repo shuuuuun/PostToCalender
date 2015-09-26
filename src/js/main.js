@@ -5,13 +5,14 @@
   // util.bindOnResize();
   var calendar = new ns.Calendar();
   
-  var $icon;
   var isWorking = false;
-  var $msg, $authBtn, $attendBtn, $leaveBtn;
+  var $icon, $setting, $msg, $modal, $authBtn, $attendBtn, $leaveBtn;
   
   $(function(){
     $icon = $(".apple-touch-icon");
+    $setting = $(".setting");
     $msg = $(".message");
+    $modal = $(".modal");
     $authBtn = $(".authBtn");
     $attendBtn = $(".attendBtn");
     $leaveBtn = $(".leaveBtn");
@@ -63,6 +64,11 @@
       // console.log("updateeventdone", calendar.lastResponse);
     });
     
+    
+    $setting.on("click",function(){
+      setCalender();
+    });
+    
   });
   
   win.apionload = function(){
@@ -70,6 +76,27 @@
     calendar.checkAuth();
     
   };
+  
+  function setCalender(){
+    setCalenderList2modal();
+    $modal.show();
+  }
+  function setCalenderList2modal(){
+    var $calendarSelecter = $(".modal_calendar-selecter");
+    calendar.getCalendarList(function(){
+      $(calendar.calendarList).each(function(i,val){
+        var $li = $("<li>");
+        $li.addClass("modal_calendar-selecter_item");
+        $li.append("<span class='calendar_summary'>" + val.summary + "</span><br><span class='calendar_id'>" + val.id + "</span>");
+        $calendarSelecter.append($li);
+        
+        $li.on("click",function(){
+          calendar.setCalendarId(val.id);
+          $modal.fadeOut();
+        });
+      });
+    });
+  }
   
   function showAuthBtn(){
     $authBtn.fadeIn();
