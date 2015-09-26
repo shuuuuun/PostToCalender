@@ -52,7 +52,8 @@
     $leaveBtn.on("click", function(){
       if (!isWorking) return;
       calendar.postLeaveEvent();
-      printMsg("Thanks for your hard work!");
+      // printMsg("Thanks for your hard work!");
+      printMsg("Good work!");
     });
     
     ns.Calendar.Evt.on("updateeventdone",function(){
