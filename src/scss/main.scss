@@ -2,9 +2,10 @@
 @import "compass";
 @import "compass/reset";
 @import "mixin";
+@import url(https://fonts.googleapis.com/css?family=Lato);
 
 // variable ------------------------------
-$MAIN_FONT: Futura, YuGothic, '游ゴシック', "ヒラギノ角ゴPro W3", "Hiragino Kaku Gothic Pro", Meiryo, "メイリオ", Helvetica, Arial, sans-serif;
+$MAIN_FONT: Lato, Futura, YuGothic, "游ゴシック", "ヒラギノ角ゴPro W3", "Hiragino Kaku Gothic Pro", Meiryo, "メイリオ", Helvetica, Arial, sans-serif;
 
 // ------------------------------
 .onlysp {
