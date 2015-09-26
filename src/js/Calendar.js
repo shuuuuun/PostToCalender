@@ -57,6 +57,8 @@
   };
   
   
+  // ns.Calendar.prototype.checkIsWorking = function() {
+    // calendar.events.list
   ns.Calendar.prototype.checkCookies = function() {
     var eventid = Cookies.get("PTC-eventid");
     if (!eventid) return false;
@@ -85,6 +87,11 @@
       end: {
         dateTime: datetime,
       },
+      extendedProperties: {
+        shared: {
+          isWorking: true,
+        },
+      },
     };
     
     that.postEvent(param);
@@ -98,6 +105,7 @@
     param.calendarId = CALENDAR_ID;
     param.eventId = that.currentEventID;
     param.end.dateTime = datetime;
+    param.extendedProperties.shared.isWorking = false;
     
     that.updateEvent(param);
   };
