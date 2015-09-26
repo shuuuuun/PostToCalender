@@ -2,6 +2,7 @@
   
   var CLIENT_ID = "890138991807-okp2geobkejj9lngj22qcond9348pph8.apps.googleusercontent.com";
   var SCOPES = ["https://www.googleapis.com/auth/calendar"];
+  // var SCOPES = ["https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/userinfo.email"];
   var CALENDAR_ID = "primary";
   // var CALENDAR_ID = "h3k3hjao5l2vnpqivbu5lvcs44@group.calendar.google.com";
   var API_KEY = "AIzaSyBultKZZsIiFj4QrUuavwsEH6yTCQEXACQ";
@@ -20,9 +21,9 @@
     
     gapi.auth.authorize(
       {
-        "client_id": CLIENT_ID,
-        "scope": SCOPES,
-        "immediate": true
+        client_id: CLIENT_ID,
+        scope: SCOPES,
+        immediate: true
       },
       handleAuthResult
     );
@@ -31,9 +32,9 @@
   ns.Calendar.prototype.handleAuthClick = function(event) {
     gapi.auth.authorize(
       {
-        "client_id": CLIENT_ID,
-        "scope": SCOPES,
-        "immediate": false
+        client_id: CLIENT_ID,
+        scope: SCOPES,
+        immediate: false
       },
       handleAuthResult
     );
@@ -43,6 +44,8 @@
   function handleAuthResult(authResult) {
     if (authResult && !authResult.error) {
       // ns.Calendar.Evt.trigger("haveAuthed");
+      
+      // console.log(authResult);
       
       // loadCalendarApi
       gapi.client.load("calendar", "v3", function(){
@@ -60,8 +63,8 @@
     
     this.currentEventID = eventid;
     var param = {
-      "calendarId": CALENDAR_ID,
-      "eventId": eventid,
+      calendarId: CALENDAR_ID,
+      eventId: eventid,
     };
     this.getEvent(param);
     return true;
@@ -73,14 +76,14 @@
     
     var datetime = (new Date()).toISOString();
     var param = {
-      "calendarId": CALENDAR_ID,
-      "summary": SUMMARY,
-      // "description": ",
-      "start": {
-        "dateTime": datetime,
+      calendarId: CALENDAR_ID,
+      summary: SUMMARY,
+      // description: ",
+      start: {
+        dateTime: datetime,
       },
-      "end": {
-        "dateTime": datetime,
+      end: {
+        dateTime: datetime,
       },
     };
     
