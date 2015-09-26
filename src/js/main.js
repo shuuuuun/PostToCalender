@@ -5,7 +5,8 @@
   // util.bindOnResize();
   var calendar = new ns.Calendar();
   
-  var isWorking = false;
+  var isWorking = false,
+      isBtnPressed = false;
   var $icon, $setting, $msg, $modal, $authBtn, $attendBtn, $leaveBtn;
   
   $(function(){
@@ -27,55 +28,70 @@
     }
     
     
-    ns.Calendar.Evt.on("haveAuthed",function(){
-      $authBtn.fadeOut();
-      isWorking = calendar.checkCookies();
-      if (isWorking) showLeaveBtn();
-      else showAttendBtn();
-    }).on("shouldAuth",function(){
-      showAuthBtn();
+    $setting.on("click",function(){
+      setCalender();
     });
     
-    $authBtn.on("click", calendar.handleAuthClick);
+    $authBtn.on("click", function(evt){
+      if (isBtnPressed) {
+        printMsg("Please wait...");
+        return;
+      }
+      isBtnPressed = true;
+      clearMsg();
+      calendar.handleAuthClick(evt);
+    });
     
     $attendBtn.on("click", function(){
-      if (isWorking) return;
+      if (isBtnPressed || isWorking) {
+        printMsg("Please wait...");
+        return;
+      }
+      isBtnPressed = true;
       calendar.postAttendEvent();
       printMsg("Do your best!");
     });
     
-    ns.Calendar.Evt.on("posteventdone",function(){
-      isWorking = true;
-      showLeaveBtn();
-      // console.log("posteventdone", calendar.lastResponse);
-    });
-    
     $leaveBtn.on("click", function(){
-      if (!isWorking) return;
+      if (isBtnPressed || !isWorking) {
+        printMsg("Please wait...");
+        return;
+      }
+      isBtnPressed = true;
       calendar.postLeaveEvent();
       // printMsg("Thanks for your hard work!");
       printMsg("Good work!");
     });
     
-    ns.Calendar.Evt.on("updateeventdone",function(){
-      isWorking = false;
-      showAttendBtn();
-      clearMsg();
-      // console.log("updateeventdone", calendar.lastResponse);
-    });
-    
-    
-    $setting.on("click",function(){
-      setCalender();
-    });
-    
   });
   
+  
   win.apionload = function(){
-    // console.log("apionload");
     calendar.checkAuth();
-    
   };
+  
+  
+  ns.Calendar.Evt.on("haveAuthed",function(){
+    isWorking = calendar.checkCookies();
+    if (isWorking) showLeaveBtn();
+    else showAttendBtn();
+  }).on("shouldAuth",function(){
+    showAuthBtn();
+  });
+  
+  ns.Calendar.Evt.on("posteventdone",function(){
+    isWorking = true;
+    showLeaveBtn();
+    // console.log("posteventdone", calendar.lastResponse);
+  });
+  
+  ns.Calendar.Evt.on("updateeventdone",function(){
+    isWorking = false;
+    showAttendBtn();
+    // clearMsg();
+    // console.log("updateeventdone", calendar.lastResponse);
+  });
+  
   
   function setCalender(){
     setCalenderList2modal();
@@ -98,25 +114,30 @@
     });
   }
   
+  
   function showAuthBtn(){
-    $authBtn.fadeIn();
+    clearMsg();
+    $authBtn.fadeIn(function(){ isBtnPressed = false; });
     $attendBtn.fadeOut();
     $leaveBtn.fadeOut();
     $icon.attr("href","./img/icon_auth.png");
   }
   function showAttendBtn(){
+    clearMsg();
     $authBtn.fadeOut();
-    $attendBtn.fadeIn();
+    $attendBtn.fadeIn(function(){ isBtnPressed = false; });
     $leaveBtn.fadeOut();
     $icon.attr("href","./img/icon_attend.png");
   }
   function showLeaveBtn(){
+    clearMsg();
     $authBtn.fadeOut();
     $attendBtn.fadeOut();
-    $leaveBtn.fadeIn();
+    $leaveBtn.fadeIn(function(){ isBtnPressed = false; });
     printMsg("Now Working!");
     $icon.attr("href","./img/icon_leave.png");
   }
+  
   
   function printMsg(message) {
     clearMsg();
@@ -125,6 +146,7 @@
   function clearMsg() {
     $msg.empty();
   }
+  
   
   // for development
   win.dev = {
