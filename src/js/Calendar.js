@@ -56,6 +56,7 @@
   
   ns.Calendar.prototype.checkIsWorking = function() {
     this.checkCookies();
+    this.checkWorkingEvent();
     
     if (!this.currentEventID) return false;
     
@@ -68,11 +69,18 @@
     return true;
   };
   ns.Calendar.prototype.checkCookies = function() {
-    var eventid = Cookies.get("PTC-eventid");
-    this.currentEventID = (eventid) ? eventid : false;
+    // var eventid = Cookies.get("PTC-eventid");
+    // this.currentEventID = (eventid) ? eventid : false;
     
     var calendarid = Cookies.get("PTC-calendarid");
     this.CALENDAR_ID = (calendarid) ? calendarid : "primary";
+  };
+  ns.Calendar.prototype.checkWorkingEvent = function() {
+    var param = {
+      calendarId: this.CALENDAR_ID,
+      sharedExtendedProperty: "isWorking=true",
+    };
+    this.getEventList(param);
   };
   
   
@@ -146,6 +154,21 @@
     var request = gapi.client.calendar.events.get(param);
     request.execute(function(response){
       that.lastResponse = response;
+      ns.Calendar.Evt.trigger("geteventdone");
+    });
+  };
+  
+  ns.Calendar.prototype.getEventList = function(param) {
+    var that = this;
+    
+    var request = gapi.client.calendar.events.list(param);
+    request.execute(function(response){
+      var events = response.items;
+      var last = events.length - 1;
+      if (!last || last < 0) return;
+      that.lastResponse = events[last];
+      that.currentEventID = events[last].id;
+      ns.Calendar.Evt.trigger("geteventlistdone");
     });
   };
   
