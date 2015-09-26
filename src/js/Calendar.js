@@ -44,10 +44,6 @@
   
   function handleAuthResult(authResult) {
     if (authResult && !authResult.error) {
-      // ns.Calendar.Evt.trigger("haveAuthed");
-      
-      // console.log(authResult);
-      
       // loadCalendarApi
       gapi.client.load("calendar", "v3", function(){
         ns.Calendar.Evt.trigger("haveAuthed");
@@ -58,22 +54,25 @@
   };
   
   
-  // ns.Calendar.prototype.checkIsWorking = function() {
-    // calendar.events.list
-  ns.Calendar.prototype.checkCookies = function() {
-    var eventid = Cookies.get("PTC-eventid");
-    if (!eventid) return false;
+  ns.Calendar.prototype.checkIsWorking = function() {
+    this.checkCookies();
     
-    var calendarid = Cookies.get("PTC-calendarid");
-    if (calendarid) this.CALENDAR_ID = calendarid;
+    if (!this.currentEventID) return false;
     
-    this.currentEventID = eventid;
     var param = {
       calendarId: this.CALENDAR_ID,
-      eventId: eventid,
+      eventId: this.currentEventID,
     };
     this.getEvent(param);
+    
     return true;
+  };
+  ns.Calendar.prototype.checkCookies = function() {
+    var eventid = Cookies.get("PTC-eventid");
+    this.currentEventID = (eventid) ? eventid : false;
+    
+    var calendarid = Cookies.get("PTC-calendarid");
+    this.CALENDAR_ID = (calendarid) ? calendarid : "primary";
   };
   
   
