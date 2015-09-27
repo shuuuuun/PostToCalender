@@ -72,9 +72,14 @@
   
   
   ns.Calendar.Evt.on("haveAuthed",function(){
-    isWorking = calendar.checkIsWorking();
-    if (isWorking) showLeaveBtn();
-    else showAttendBtn();
+    // isWorking = calendar.checkIsWorking();
+    // if (isWorking) showLeaveBtn();
+    // else showAttendBtn();
+    calendar.checkIsWorking(function(result){
+      isWorking = result;
+      if (isWorking) showLeaveBtn();
+      else showAttendBtn();
+    });
   }).on("shouldAuth",function(){
     showAuthBtn();
   });
